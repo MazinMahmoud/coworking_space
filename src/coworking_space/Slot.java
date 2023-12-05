@@ -24,9 +24,8 @@ public class Slot {
     }
 }
 interface Reservable {
-    boolean reserveSlot(Slot slot, Visitor visitor);
-    boolean cancelReservation(Slot slot, Visitor visitor);
-    boolean updateReservation(Slot oldSlot, Slot newSlot, Visitor visitor);
+    boolean reserveSlot(Slot slot, Vistor visitor);
+    boolean cancelReservation(Slot slot, Vistor visitor);
+    boolean updateReservation(Slot oldSlot, Slot newSlot, Vistor visitor);
     void displayAvailableSlots();
 }
-
