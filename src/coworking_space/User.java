@@ -18,6 +18,7 @@ public abstract class User {
         if(username.equals("admin") && password.equals("admin")){
             return "admin";
         }
+        else return "";// katb ay 7aga a4an error
 
     }
 
