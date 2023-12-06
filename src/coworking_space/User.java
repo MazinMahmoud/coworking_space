@@ -1,4 +1,6 @@
 package coworking_space;
+import java.io.*;
+import java.util.Scanner;
 
 public abstract class User {
     protected String username;
@@ -13,15 +15,53 @@ public abstract class User {
 
     }
 
-    public abstract void Register();
-    public static String Login(String password, String username){
-        if(username.equals("admin") && password.equals("admin")){
-            return "admin";
-        }
-        else return "";// katb ay 7aga a4an error
+
+    public static boolean Login(String password, String username,File file) throws IOException {
+       return checkCredintials(file,username,password,false);
+    }
+    public static boolean Register(String password,String username,File file) throws IOException{
+            if (checkCredintials(file,username,password,true)){
+                FileWriter writer = new FileWriter(file,true);
+                writer.append(password+ " " + username + '\n');
+                writer.close();
+                return true;
+            }
+             return false;
 
     }
 
 
+       private static boolean checkCredintials(File file,String username,String password,boolean register) throws IOException {
+           BufferedReader reader = new BufferedReader(new FileReader(file));
+           String line;
+           while ((line = reader.readLine()) != null) {
+               String[] parts = line.split("\\s+");
 
+
+               if(register){
+
+                   if (parts.length == 2 && parts[1].equals(username)){
+                       reader.close();
+                       return false;
+                   }
+
+               }
+               else {
+                   if (parts.length == 2 && parts[1].equals(username)) {
+                       if (parts[0].equals(password)) {
+                           reader.close();
+                           return true;
+                       }
+                   }
+
+               }
+           }
+           if(register)
+           return true;
+           return false;
+       }
+
+
+
+// ----------
 }

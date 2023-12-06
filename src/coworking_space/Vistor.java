@@ -13,8 +13,7 @@ public class Vistor extends User {
     }
 
 
-    @Override
-    public void Register() {
+    public void Reserve() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a username");
         this.username = scanner.next();
