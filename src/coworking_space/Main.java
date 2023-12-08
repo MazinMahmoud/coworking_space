@@ -47,6 +47,11 @@ public class Main {
             }
         }
 
+//bgrb el method
+//        Slot s1=new Slot("","",0);
+//        s1.reserve_aslot(2,5,24);
+//        s1.display_slots(2,1,12);
+
 
 
     }
