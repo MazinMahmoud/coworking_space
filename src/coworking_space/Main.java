@@ -3,53 +3,114 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package coworking_space;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        File file = new File("info.txt");
-        Scanner scan = new Scanner(System.in);
-
-
-        while(true) {
-            System.out.println("If you are new user, press r to register otherwise press any key to login"); //should be fixed when implementing javafx
-
-            String c = scan.nextLine();
-            if (c.toUpperCase().equals("R")) {
-                System.out.println("Enter your new username: ");
-                String username = scan.nextLine();
-
-                System.out.println("Enter your new password:");//should fix it as *** with JavaFX
-                String password = scan.nextLine();
-
-                if (User.Register(password, username, file)) {
-                    System.out.println("You are now registered!");
-                    break;
-                } else {
-                    System.out.println("This username has been taken before, please enter another one!");
+    private static ArrayList<User> ReadUserFile(File file) {
+        String path = file.getAbsolutePath();
+        ArrayList<User> Users = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length >= 2) {
+                    User takingUser = new User(parts[0], parts[1]);
+                    Users.add(takingUser);
                 }
-            } else {
-                System.out.println("Please enter your username:");
-                String username = scan.nextLine();
-                System.out.println("Please enter your password:");//should fix it as *** with JavaFX
-                String password = scan.nextLine();
-                User.Login(username, password, file);
-                if (User.Login(username, password, file)) {
-                    System.out.println("Welcome!");
-                    break;
-                } else{ System.out.println("Please try again");
-                }
-
-
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        return Users;
+    }
+
+    private static void WriteUserFile(File file, ArrayList<User> Users) throws IOException {
+
+
+        // this function is implemented to abide with the document's requirments.
+
+        FileWriter writer1 = new FileWriter(file);
+        writer1.write(Users.get(0).getUsername() + ":" + Users.get(0).getPassword() + '\n');
+        writer1.close();
+        for (User users : Users) {
+            FileWriter writer2 = new FileWriter(file, true);
+
+            writer2.append(users.getUsername() + ":" + users.getPassword() + '\n');
+            writer2.close();
+        }
+
+
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        File file = new File("C:\\Users\\Ismail\\IdeaProjects\\coworking_space\\src\\info.txt");
+        Scanner scan = new Scanner(System.in);
+        ArrayList<User> Users = ReadUserFile(file);
+        String username;
+        String password;
+
+        while (true) {
+            System.out.println("If you are new user, press R to register otherwise press any key to login"); //should be fixed when implementing javafx
+            boolean Register = true;
+            boolean LoggedIn = false;
+            String c = scan.nextLine();
+            if (c.equalsIgnoreCase("R")) {
+                System.out.println("Enter your new username: ");
+                username = scan.nextLine();
+
+
+                System.out.println("Enter your new password:");
+                password = scan.nextLine();
+
+                for (User users : Users) {
+                    if (users.getUsername().equals(username)) {
+                        System.out.println("This username has been taken before, please enter another valid one!");
+                        Register = false;
+                        break;
+
+                    }
+                }
+                if (Register) {
+                    User newUser = new User(username, password);
+                    Users.add(newUser);
+                    System.out.println("You're now registered!");
+                    break;
+                }
+            }
+            else{
+                    System.out.println("Please enter your username:");
+                    username = scan.nextLine();
+                    System.out.println("Please enter your password:");
+                    password = scan.nextLine();
+                    for (User user : Users) {
+                        if (user.getUsername().equals(username)) {
+                            if (user.getPassword().equals(password)) {
+                                System.out.println("Welcome " + username);
+                                LoggedIn = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                    if (!LoggedIn) {
+                        System.out.println("Error: Invalid Username or password! please try again!");
+                    }
+
+
+                }
+                if (LoggedIn)
+                    break;
+
+            }
+            WriteUserFile(file, Users);
+
 //test el method|
-
-
 
 
 //        Slot.reserve_aslot(1,7,20);
@@ -65,6 +126,9 @@ public class Main {
 //        Slot.display_slots(1,1,24);
 
 
+        }
+
     }
+
     
-}
+

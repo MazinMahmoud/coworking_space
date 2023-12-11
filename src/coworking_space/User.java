@@ -2,17 +2,26 @@ package coworking_space;
 import java.io.*;
 import java.util.Scanner;
 
-public abstract class User {
+public class User {
     protected String username;
     protected String password;
-    protected int ID;
+    protected static int ID=0;
 
-    public User(String username,String password){
+
+    public User(String username,String password,int ID){
         this.username = username;
         this.password = password;
     }
-    public User(){
+    public User(String username,String password){
+        this(username,password,ID);
+        ID++;
 
+    }
+    public String getUsername(){
+        return this.username;
+    }
+    public String getPassword(){
+        return this.password;
     }
 
 
@@ -22,8 +31,7 @@ public abstract class User {
     public static boolean Register(String password,String username,File file) throws IOException{
             if (checkCredintials(file,username,password,true)){
                 FileWriter writer = new FileWriter(file,true);
-                writer.append(password+ " " + username + '\n');
-                writer.close();
+
                 return true;
             }
              return false;
@@ -40,15 +48,15 @@ public abstract class User {
 
                if(register){
 
-                   if (parts.length == 2 && parts[1].equals(username)){
+                   if (parts.length == 2 && parts[0].equals(username)){
                        reader.close();
                        return false;
                    }
 
                }
                else {
-                   if (parts.length == 2 && parts[1].equals(username)) {
-                       if (parts[0].equals(password)) {
+                   if (parts.length == 2 && parts[0].equals(username)) {
+                       if (parts[1].equals(password)) {
                            reader.close();
                            return true;
                        }
@@ -63,5 +71,5 @@ public abstract class User {
 
 
 
-// ----------
+
 }
