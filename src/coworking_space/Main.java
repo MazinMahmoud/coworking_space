@@ -32,14 +32,15 @@ public class Main {
 
 
         // this function is implemented to abide with the document's requirments.
-
         FileWriter writer1 = new FileWriter(file);
+
         writer1.write(Users.get(0).getUsername() + ":" + Users.get(0).getPassword() + '\n');
         writer1.close();
-        for (User users : Users) {
-            FileWriter writer2 = new FileWriter(file, true);
 
-            writer2.append(users.getUsername() + ":" + users.getPassword() + '\n');
+        for (int i = 1;i<Users.size();++i) {
+            FileWriter writer2 = new FileWriter(file,true);
+
+            writer2.append(Users.get(i).getUsername() + ":" + Users.get(i).getPassword() + '\n');
             writer2.close();
         }
 
