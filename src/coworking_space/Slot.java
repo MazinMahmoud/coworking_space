@@ -1,33 +1,34 @@
 package coworking_space;
 
+import org.w3c.dom.ls.LSOutput;
+
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class Slot {
     private String time;
     private String date;
     private double fees;
-    private boolean array_of_slots[][]= new boolean[8][25];
-    private String dayName;
+    public static int counter;
+    private static int   array_of_slots[][]= new int  [8][25];
+    private static String dayName;
     public Slot(String time, String date, double fees) {
         this.time = time;
         this.date = date;
         this.fees = fees;
-        for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <= 24; j++) {
-                array_of_slots[i][j] = true;
-            }
-        }
+        counter=0;
 
-    }
-    public void reserve_aslot(int day,int from_h,int to_h){
+   }
+    public static void reserve_aslot(int day,int from_h,int to_h){
         for (int i=from_h;i<=to_h;i++){
 
-            array_of_slots[day][i]=false;
+            array_of_slots[day][i]=counter;
+
 
         }
+        counter++;
     }
-    public void display_slots(int day,int from_h,int to_h)
-    {
+    public static void display_slots(int day,int from_h,int to_h) {
         switch (day) {
             case 1:
                 dayName = "Saturday";
@@ -48,21 +49,23 @@ public class Slot {
                 break;
             case 7:
                 dayName = "Friday";
+                break;
         }
-        System.out.println("we have on"+dayName);
-        for(int i=from_h;i<=to_h;i++)
-        {
-            if (array_of_slots[day][i]){
+        System.out.println("we have on" + dayName);
+        for (int i = from_h; i <= to_h; i++) {
 
-                System.out.println("in "+i+":00");
+            if (array_of_slots[day][i] <20) {
 
-                }
+                System.out.println("in " + i + ":00" +array_of_slots[day][i]+"person");
+
 
             }
 
-
-
         }
+    }
+
+
+
 
 
 

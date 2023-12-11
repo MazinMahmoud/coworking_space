@@ -47,11 +47,22 @@ public class Main {
             }
         }
 
-//test el method
-//        Slot s1=new Slot("","",0);
-//        s1.reserve_aslot(2,5,24);
-//        s1.display_slots(2,1,12);
+//test el method|
 
+
+
+
+//        Slot.reserve_aslot(1,7,20);
+//        Slot.reserve_aslot(1,7,20);
+//        Slot.reserve_aslot(1,7,20);
+//
+//
+//        System.out.println("display one");
+//        Slot.display_slots(1,1,5);
+//        System.out.println("re2");
+//        Slot.reserve_aslot(1,1,6);
+//        System.out.println("display 2");
+//        Slot.display_slots(1,1,24);
 
 
     }
