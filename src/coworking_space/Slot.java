@@ -1,25 +1,57 @@
 package coworking_space;
-
 import org.w3c.dom.ls.LSOutput;
-
 import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 public class Slot {
-    private String time;
-    private String date;
+    private LocalTime time;
+    private LocalDate date;
     private double fees;
-    public static int counter;
-    private static int   array_of_slots[][]= new int  [8][25];
-    private static String dayName;
-    public Slot(String time, String date, double fees) {
+    //public static int counter;
+    //private static int array_of_slots[][]= new int [8][25];
+    //private static String dayName;
+    private boolean isReserved;
+    public Slot(LocalTime time, LocalDate date, double fees, boolean isReserved) {
         this.time = time;
         this.date = date;
         this.fees = fees;
-        counter=0;
+        this.isReserved = false;
+        //counter=0;
 
    }
-    public static void reserve_aslot(int day,int from_h,int to_h){
+    public void reserve() {
+        if (!this.isReserved) {
+            this.isReserved = true;
+            System.out.println("Slot reserved");
+        } else {
+            System.out.println("Slot is already reserved.");
+        }
+    }
+
+    public void cancelReservation() {
+        if (this.isReserved) {
+            this.isReserved = false;
+            System.out.println("Reservation cancelled");
+        } else {
+            System.out.println("There is no reservation to cancel");
+        }
+    }
+
+    public void updateSlot(LocalTime newTime, LocalDate newDate, double newFees) {
+        if (newTime != null) {
+            this.time = newTime;
+        }
+        if (newDate != null) {
+            this.date = newDate;
+        }
+        if (newFees >= 0) {
+            this.fees = newFees;
+        }
+        System.out.println("Slot updated");
+    }
+    /*public static void reserve_aslot(int day,int from_h,int to_h){
         for (int i=from_h;i<=to_h;i++){
 
             array_of_slots[day][i]=counter;
@@ -62,19 +94,12 @@ public class Slot {
             }
 
         }
-    }
-
-
-
-
-
-
-
-        public String getTime() {
+    }*/
+        public LocalTime getTime() {
         return time;
     }
 
-        public String getDate() {
+        public LocalDate getDate() {
         return date;
     }
 
