@@ -11,8 +11,8 @@ public class Slot {
     private LocalDate date;
     private double fees;
     private boolean isReserved;
-    private String roomID;
-    public Slot(LocalTime startTime, LocalTime endTime, LocalDate date, double fees, boolean isReserved,String roomID) {
+    private int roomID;
+    public Slot(LocalTime startTime, LocalTime endTime, LocalDate date, double fees, boolean isReserved,int roomID) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
