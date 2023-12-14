@@ -8,46 +8,44 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class Slot {
-    private String userName;
+    private ArrayList<String> userName;
     private int hour;
     public boolean reserved;
-    public int number_of_reservation;
 
-    public Slot (String userName, int hour) {
 
-        this.userName = userName;
-        this.hour= hour;
-        number_of_reservation=0;
-        this.reserved=false;
+    public Slot(int hour) {
+       userName=new ArrayList<>();
+
+        this.hour = hour;
+
+        this.reserved = false;
 
 
     }
-    public void setNumber_of_reservation(){
-       ++ number_of_reservation;
-    }
-    public void cansle_reservation(){
-        this.userName="";
 
-        number_of_reservation-=1;
+    public void cancel_reservation( String name) {
+        this.userName.remove(name );
+
+
     }
 
 
-    public String getUserName() {
+    public ArrayList<String> getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName.add(userName);
     }
 
-    public int gethour() {
+    public int getHour() {
         return hour;
     }
 
-    public void setTimeSlot(int newhour) {
-        this.hour = newhour;
-    }
+    public void setTimeSlot(int newHour) {
+        this.hour = newHour;
     }
 
 
+}
 
