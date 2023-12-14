@@ -3,79 +3,51 @@ import org.w3c.dom.ls.LSOutput;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Slot {
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private LocalDate date;
-    private double fees;
-    private boolean isReserved;
-    private int roomID;
-    public Slot(LocalTime startTime, LocalTime endTime, LocalDate date, double fees, boolean isReserved,int roomID) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
-        this.fees = fees;
-        this.isReserved = false;
-        this.roomID = roomID;
-   }
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
+    private String userName;
+    private int hour;
+    public boolean reserved;
+    public int number_of_reservation;
+
+    public Slot (String userName, int hour) {
+
+        this.userName = userName;
+        this.hour= hour;
+        number_of_reservation=0;
+        this.reserved=false;
+
+
+    }
+    public void setNumber_of_reservation(){
+       ++ number_of_reservation;
+    }
+    public void cansle_reservation(){
+        this.userName="";
+
+        number_of_reservation-=1;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFees(double fees) {
-        this.fees = fees;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-    public LocalTime getEndTime() {
-        return endTime;
+    public int gethour() {
+        return hour;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public void setTimeSlot(int newhour) {
+        this.hour = newhour;
+    }
     }
 
-    public double getFees() {
-        return fees;
-    }
-    public void reserve() {
-        if (!this.isReserved) {
-            this.isReserved = true;
-            System.out.println("Slot reserved");
-        } else {
-            System.out.println("Slot is already reserved.");
-        }
-    }
-    public void cancelReservation() {
-        if (this.isReserved) {
-            this.isReserved = false;
-            System.out.println("Reservation cancelled");
-        } else {
-            System.out.println("There is no reservation to cancel");
-        }
-    }
-    public void updateSlot(LocalTime newStartTime, LocalTime newEndTime, LocalDate newDate, double newFees) {
-        if (!isReserved) {
-            setStartTime(newStartTime);
-            setEndTime(newEndTime);
-            setFees(newFees);
-            setDate(newDate);
-            System.out.println("Slot updated");
 
-        } else {
 
-            System.out.println("Slot update failed");
-        }
-    }
-    }

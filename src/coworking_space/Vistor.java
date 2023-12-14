@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class Vistor  {
     protected String VistorType;
     // General = 1, Formal = 2, Instructor = 3
-
-
     //ID will be used by admin to get vistor info
 
 
