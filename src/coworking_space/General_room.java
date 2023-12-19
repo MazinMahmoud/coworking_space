@@ -4,8 +4,8 @@ public class General_room extends Room{
 
 
 
-    public General_room(int max,double fees,String room_name ){
-        super(room_name,max,fees);
+    public General_room(String name, int ID, int maxVisitors, double fees ){
+        super(name, ID, maxVisitors, fees);
 
     }
 }
