@@ -10,10 +10,6 @@ public class Teaching_Room extends Room {
         this.projector_Type=pro_Type;
         this.board_Type=board_type;
     }
-    public boolean IsAvaliable(){
-        boolean avaliable =true;
 
-        return avaliable;
-    }
 
 }

@@ -1,27 +1,14 @@
 package coworking_space;
 
-public abstract class Room extends Reserve{
+import java.util.ArrayList;
+
+public abstract class Room {
     protected String name;
     protected int ID;
+    int maxVisitors;
+    double fees;
+    public TimePeriod schedule[][]=new TimePeriod[31][25];
 
-
-    //setters
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    //getters
-    public String getName() {
-        return name;
-    }
-
-    public int getID() {
-        return ID;
-    }
 
 
     //constructors

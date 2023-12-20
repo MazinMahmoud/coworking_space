@@ -8,21 +8,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<User> ReadUserFile(File file) {
+    private static ArrayList<Visitor> ReadUserFile(File file) {
         String path = file.getAbsolutePath();
-        ArrayList<User> Users = new ArrayList<>();
+        ArrayList<Visitor> Users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 if (parts.length >= 2) {
-                    User takingUser = new User(parts[0], parts[1]);
+                    Visitor takingUser = new Visitor(parts[0], parts[1],parts[2]);
                     Users.add(takingUser);
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException eslam) {
+            eslam.printStackTrace();
         }
 
         return Users;
@@ -114,7 +114,7 @@ public class Main {
                     }
                 }
                 if (Register) {
-                    User newUser = new Vistor(username, password,VisitorType);
+                    User newUser = new Visitor(username, password,VisitorType);
                     Users.add(newUser);
 
                     System.out.println("You're now registered!");
