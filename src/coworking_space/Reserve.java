@@ -4,7 +4,7 @@ public class Reserve {
 
 int maxVisitor;
 double fees;
-    public Slot schedule[][]=new Slot[31][25];
+public Slot schedule[][]=new Slot[31][25];
 public Reserve(int max,double fees){
     this.maxVisitor=max;
     this.fees= fees;
@@ -55,9 +55,10 @@ boolean check_reserve(int day ,int h){
 
     }
 
-void display_avliable_reservation(int day){
-    for (int i=8;i<=24;i++ ){
-        if (!check_reserve(day,i)) System.out.println(i+"valid"+(maxVisitor-schedule[day][i].getUserName().size()));
+protected void display_avaliable_reservation(int day){
+    for (int i=8;i<=24;i++){
+        int next_hour = i+1;
+        if (!check_reserve(day,i)) System.out.println(i+" - "+next_hour+" On " + day);
     }
 }
 void update(int day,int from_h,int to_h, String name ){

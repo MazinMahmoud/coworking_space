@@ -4,6 +4,7 @@ public abstract class Room extends Reserve{
     protected String name;
     protected int ID;
 
+
     //setters
     public void setName(String name) {
         this.name = name;

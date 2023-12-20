@@ -4,6 +4,7 @@
  */
 package coworking_space;
 import java.io.*;
+import static java.lang.Integer.min;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.*;
@@ -55,6 +56,18 @@ public class Main {
         ArrayList<User> Users = ReadUserFile(file);
         String username;
         String password;
+        String VisitorType = "General";
+        int Reserve_day;
+        boolean admin=false;
+        Teaching_Room [] teachingRooms  = {
+                new Teaching_Room("laser", "white_board",  1, 10, "teaching room", 200),
+                new Teaching_Room("DLP", "white_board", 2, 10, "teaching room", 200),
+                new Teaching_Room("laser", "white_board", 3, 10, "teaching room", 200)
+        };
+        General_room generalRooms[] = {
+                new General_room("general room", 1, 20, 10 ),
+                new General_room("general room", 2, 20, 10 )
+        };
 
         while (true) {
             System.out.println("If you are new user, press R to register otherwise press any key to login"); //should be fixed when implementing javafx
@@ -68,6 +81,8 @@ public class Main {
 
                 System.out.println("Enter your new password:");
                 password = scan.nextLine();
+                System.out.println("Are you a formal visitor or a an instructor or a general vis");
+                VisitorType = scan.nextLine();
 
                 for (User users : Users) {
                     if (users.getUsername().equals(username)) {
@@ -78,8 +93,9 @@ public class Main {
                     }
                 }
                 if (Register) {
-                    User newUser = new User(username, password);
+                    User newUser = new Vistor(username, password,VisitorType);
                     Users.add(newUser);
+
                     System.out.println("You're now registered!");
                     break;
                 }
@@ -89,6 +105,16 @@ public class Main {
                 System.out.println("Please enter your password:");
                 password = scan.nextLine();
                 for (User user : Users) {
+                    if (username.equals("admin")&& password.equals("admin"))
+                    {
+                        admin=true;
+                        LoggedIn = true;
+                        System.out.println("Welcome admin");
+                        break;
+
+
+                    }
+
                     if (user.getUsername().equals(username)) {
                         if (user.getPassword().equals(password)) {
                             System.out.println("Welcome " + username);
@@ -108,24 +134,101 @@ public class Main {
             if (LoggedIn)
                 break;
 
+
+        }
+        if(admin)
+            System.out.println(1);
+        else
+        {
+
+            int choice;
+
+            while(true)
+            {
+                System.out.println("Press 1 to make new Resarvation");
+                System.out.println("Press 2 to Update Resarvation");
+                System.out.println("Press 3 to Cancel Resarvation");
+                choice = scan.nextInt();
+                switch (choice)
+                {
+                    case 1:
+                        System.out.println("ENTER the day");
+                        Reserve_day=scan.nextInt();
+
+                        if(VisitorType.equals("General")){
+                            for(int i = 1;i<=2;++i)
+                            {
+                                System.out.println("here is the avalble slots for General room"+ i);
+                                generalRooms[i-1].display_avaliable_reservation(Reserve_day);
+
+                            }
+                            System.out.println("choose roomnumber u want to reserve in" );
+                            int roomchoice=scan.nextInt();
+                            System.out.println("Starting hour" );
+                            int Starthour=scan.nextInt();
+                            System.out.println("ending hour" );
+                            int endhour=scan.nextInt();
+                            for(int i=Starthour;i<=endhour;i++)
+                                generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                            System.out.println("reservation done successfully to :"+username);
+                        }
+                        else if(VisitorType.equals("Instructor")){
+                            for(int i = 1;i<=3;++i)
+                            {
+                                System.out.println("here is the avalble slots for Teaching room"+ i);
+                                teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
+
+                            }
+                            System.out.println("choose roomnumber u want to reserve in");
+                            int roomchoice=scan.nextInt();
+                            System.out.println("Starting hour" );
+                            int Starthour=scan.nextInt();
+                            System.out.println("ending hour" );
+                            int endhour=scan.nextInt();
+                            for(int i=Starthour;i<=endhour;i++)
+                                teachingRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+
+                            System.out.println("reservation done successfully to :"+username);
+                        }
+                        else{
+                            for(int i = 1;i<=3;++i)
+                            {
+                                System.out.println("here is the avalble slots for Meeting room"+ i);
+                                generalRooms[i-1].display_avaliable_reservation(Reserve_day);
+
+                            }
+                            System.out.println("choose roomnumber u want to reserve in" );
+                            int roomchoice=scan.nextInt();
+                            System.out.println("Starting hour" );
+                            int Starthour=scan.nextInt();
+                            System.out.println("ending hour" );
+                            int endhour=scan.nextInt();
+                            for(int i=Starthour;i<=endhour;i++)
+                                generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                            System.out.println("reservation done successfully to :"+username);
+
+                        }
+                        break;
+                    case 2:
+                        System.out.println(2);
+                        break;
+
+
+                }
+            }
+
+
         }
 
-        WriteUserFile(file, Users);
 
-        Teaching_Room [] teachingRooms  = {
-        new Teaching_Room("laser", "white_board", username, 1, 10, "teaching room", 200),
-        new Teaching_Room("DLP", "white_board", username, 2, 10, "teaching room", 200),
-        new Teaching_Room("laser", "white_board", username, 3, 10, "teaching room", 200)
-        };
-        General_room generalRooms[] = {
-                new General_room("general room", 1, 20, 10 ),
-                new General_room("general room", 2, 20, 10 )
-        };
+//        WriteUserFile(file, Users);
+//
 
 
 
 
 
+//
 //test el method|
 //    Teaching_Room room1=new Teaching_Room("","","",1,3,"",10);
 //    int today=1;
@@ -145,4 +248,3 @@ public class Main {
 
     }
 }
-
