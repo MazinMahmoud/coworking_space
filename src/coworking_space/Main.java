@@ -4,10 +4,8 @@
  */
 package coworking_space;
 import java.io.*;
-import static java.lang.Integer.min;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
 
 public class Main {
     private static ArrayList<User> ReadUserFile(File file) {
@@ -48,22 +46,45 @@ public class Main {
 
 
     }
+    public static Teaching_Room[]  ReadTeachingRooms(File file){
+        String path = file.getAbsolutePath();
+        Teaching_Room [] teachingRooms  = {
+                new Teaching_Room("laser", "white_board", 1, 10, "teaching room", 200),
+                new Teaching_Room("DLP", "white_board", 2, 10, "teaching room", 200),
+                new Teaching_Room("laser", "white_board", 3, 10, "teaching room", 200)
+        };
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(":");
+                if (parts.length >= 2) {
+                    teachingRooms[Integer.parseInt(parts[0])].reserve_hours(Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),parts[3]);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return teachingRooms;
+    }
 
 
     public static void main(String[] args) throws IOException {
         File file = new File("info.txt");
+        File file2 = new File("Teaching_Rooms.txt");
         Scanner scan = new Scanner(System.in);
         ArrayList<User> Users = ReadUserFile(file);
+
         String username;
         String password;
         String VisitorType = "General";
         int Reserve_day;
         boolean admin=false;
-        Teaching_Room [] teachingRooms  = {
-                new Teaching_Room("laser", "white_board",  1, 10, "teaching room", 200),
-                new Teaching_Room("DLP", "white_board", 2, 10, "teaching room", 200),
-                new Teaching_Room("laser", "white_board", 3, 10, "teaching room", 200)
-        };
+        Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
         General_room generalRooms[] = {
                 new General_room("general room", 1, 20, 10 ),
                 new General_room("general room", 2, 20, 10 )
