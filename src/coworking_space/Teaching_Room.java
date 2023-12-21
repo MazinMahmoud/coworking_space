@@ -1,10 +1,14 @@
 package coworking_space;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Teaching_Room extends Room {
+
     private String projector_Type ;
     private String board_Type;
 
-     static int fees;
+
 
 
     Teaching_Room(String pro_Type,String board_type, int ID, int max,String room_name,int room_fees ){
@@ -14,7 +18,8 @@ public class Teaching_Room extends Room {
         this .fees=room_fees;
 
     }
-    int calc_fees (String name ){
+
+    int calc_fees (String name){
         int count_hours=0;
         for (int day =0;day<30;day ++){
             for (int hour =8;hour<=24;hour++ ){

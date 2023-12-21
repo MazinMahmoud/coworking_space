@@ -9,7 +9,7 @@ public abstract class Room {
     static  int  fees;
     public TimePeriod schedule[][]=new TimePeriod[31][25];
 
-
+    public int fees;
 
     //constructors
     public Room(String name, int ID, int maxVisitors) {
@@ -26,7 +26,6 @@ public abstract class Room {
             }
         }
     }
-
     abstract int  calc_fees(String name);
     boolean flag=true;
 
@@ -101,6 +100,42 @@ public abstract class Room {
     void update(int day,int from_h,int to_h, String name ){
         cancel_reservation(name);
         reserve_range(day, from_h, to_h, name);
+    }
+    public int calcNoOfReservations(String username) {
+        int noOfReservations=0;
+            for (int day = 0; day < 30; day++) {
+                for (int hour = 8; hour <= 24; hour++) {
+                    for (int i = 0; i < schedule[day][hour].userName.size(); ++i) {
+                        if (schedule[day][hour].userName.get(i).equals(username) ) {
+                            noOfReservations++;
+                        }
+                    }
+                }
+            }
+
+
+
+
+        return noOfReservations;
+    }
+
+    public int calcfeesforallusers(String name) {
+        int count_hours = 0;
+        if (name.equals(this.name)) {
+            for (int day = 0; day < 30; day++) {
+                for (int hour = 8; hour <= 24; hour++) {
+                    for (int i = 0; i < schedule[day][hour].userName.size(); ++i) {
+                        if (schedule[day][hour].userName.get(i) != null) {
+                            count_hours++;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        return count_hours*fees;
     }
 //    public abstract boolean IsAvailable();
 }

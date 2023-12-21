@@ -3,7 +3,7 @@ package coworking_space;
 import coworking_space.Room;
 
 public class Meeting_Room extends Room {
-static int fees;
+
     public Meeting_Room(String name, int ID, int maxVisitors, int fees) {
         super(name, ID, maxVisitors);
         this.fees=fees;
