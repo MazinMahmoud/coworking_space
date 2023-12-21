@@ -26,7 +26,21 @@ public abstract class Room {
             }
         }
     }
+    int calcfeesforallusers(String name,int fees) {int count_hours = 0;
+        if (name.equals(this.name)) {
+            for (int day = 0; day < 30; day++) {
+                for (int hour = 8; hour <= 24; hour++) {
 
+                    if (schedule[day][hour].getUserName() != null) {
+                        count_hours++;
+                    }
+                }
+            }
+
+
+        }
+        return count_hours*fees;
+    }
     abstract int  calc_fees(String name);
     void reserve_range (int day,int from_h,int to_h,String username){
         for (int res=from_h ;res<to_h;res++){
@@ -78,5 +92,7 @@ public abstract class Room {
         cancel_reservation(name);
         reserve_range(day, from_h, to_h, name);
     }
+
+    public abstract int calcfeesforallusers(String roomname);
 //    public abstract boolean IsAvailable();
 }

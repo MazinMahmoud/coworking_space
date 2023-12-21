@@ -5,17 +5,15 @@ import java.util.Scanner;
 public class User {
     protected String username;
     protected String password;
-    protected static int ID=0;
+    protected static int IDcounter=0;
+    protected int ID;
 
 
-    public User(String username,String password,int ID){
+    public User(String username,String password){
         this.username = username;
         this.password = password;
-    }
-    public User(String username,String password){
-        this(username,password,ID);
-        ID++;
-
+        IDcounter++;
+        this.ID = IDcounter;
     }
     public String getUsername(){
         return this.username;
