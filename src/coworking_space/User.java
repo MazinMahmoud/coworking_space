@@ -6,7 +6,7 @@ public class User {
     protected String username;
     protected String password;
     protected static int IDcounter=0;
-    protected int ID;
+    protected static int ID;
 
 
     public User(String username,String password){
