@@ -17,7 +17,7 @@ Scanner scan = new Scanner(System.in);
     public void display_visitors(ArrayList<Visitor> visitors, Room  rooms) {
         System.out.println("Visitor ID\tVisitor type\tVisitor username\tVisitor password\tNumber of reservations\t");
         for (Visitor vis : visitors) {
-            System.out.println(vis.getId() + "\t" + vis.VistorType + "\t" + vis.username + "\t" + vis.password + "\t");
+            System.out.println(vis.getId() + "\t" + vis.VistorType + "\t" + vis.username + "\t" + vis.password + "\t"+ rooms.calcNoOfReservations(vis.getUsername()));
         }
     }
     public int calcFeesForAUser(Room room,String username){
@@ -47,6 +47,7 @@ Scanner scan = new Scanner(System.in);
         }
         return totalAmount;
     }
+
 
 
 

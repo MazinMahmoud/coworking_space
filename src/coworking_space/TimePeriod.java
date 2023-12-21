@@ -2,7 +2,7 @@ package coworking_space;
 import java.util.ArrayList;
 
 public class TimePeriod {
-    private ArrayList<String> userName;
+    public ArrayList<String> userName;
     private int hour;
     public boolean reserved;
 

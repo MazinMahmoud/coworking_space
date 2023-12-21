@@ -50,9 +50,9 @@ public class Main {
     public static Teaching_Room[] ReadTeachingRooms(File file) {
         String path = file.getAbsolutePath();
         Teaching_Room[] teachingRooms = {
-                new Teaching_Room("laser", "white_board", 1, 10, "teaching room", 200),
-                new Teaching_Room("DLP", "white_board", 2, 10, "teaching room", 200),
-                new Teaching_Room("laser", "white_board", 3, 10, "teaching room", 200)
+                new Teaching_Room("laser", "white_board", 1, 10, "Teaching", 200),
+                new Teaching_Room("DLP", "white_board", 2, 10, "Teaching", 200),
+                new Teaching_Room("laser", "white_board", 3, 10, "Teaching", 200)
         };
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
@@ -162,17 +162,32 @@ public class Main {
                 System.out.println("Press 1 to Calculate total income from General Rooms");
                 System.out.println("Press 2 to Calculate total income from Meeting Rooms");
                 System.out.println("Press 3 to Calculate total income from Teaching Rooms");
-                choice = scan.nextInt();
+                System.out.println("Press 4 to display visitors' data:");
+                try {
+                    choice = Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    continue;
+                }
                 switch (choice) {
                     case 1 -> {
-                        System.out.println(admins.calcFeesForGeneralRoom(generalRooms));
+                        System.out.println(admins.calcFeesForGeneralRoom(generalRooms)/2);
                         break;
                     }
                     case 2->{
-
+                        break;
                     }
                     case 3 ->{
-                        System.out.println(admins.calcFeesForTeachingRoom(teachingRooms));
+                        System.out.println(admins.calcFeesForTeachingRoom(teachingRooms)/2);
+                        break;
+                    }
+                    case 4 ->{
+                        if(VisitorType.equalsIgnoreCase("general"))
+                        for(int i =0;i<3;++i)
+                        admins.display_visitors(Users,generalRooms[i]);
+                        else if(VisitorType.equalsIgnoreCase("Instructor"))
+                            for(int i = 0;i<2;++i)
+                            admins.display_visitors(Users,teachingRooms[i]);
                     }
                 }
                 break;

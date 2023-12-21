@@ -7,6 +7,7 @@ public class Visitor extends User {
         this.VistorType = VistorType;
     }
 
+
     public String getVistorType(){
         return VistorType;
     }
