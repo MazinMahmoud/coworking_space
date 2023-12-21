@@ -6,26 +6,28 @@ public abstract class Room {
     protected String name;
     protected int ID;
     int maxVisitors;
-    double fees;
+
     public TimePeriod schedule[][]=new TimePeriod[31][25];
 
 
 
     //constructors
-    public Room(String name, int ID, int maxVisitors, double fees) {
+    public Room(String name, int ID, int maxVisitors) {
         this.name = name;
         this.ID = ID;
         this.maxVisitors = maxVisitors;
-        this.fees = fees;
 
-        for (int day=0;day<=30;day++) {
-            for (int h = 8; h <= 24; h++) {
+
+        for (int day=0;day<=30;day++)
+        {
+            for (int h = 8; h <= 24; h++)
+            {
                 schedule[day][h] = new TimePeriod(h);
             }
         }
     }
 
-
+    abstract int  calc_fees(String name );
     void reserve_range (int day,int from_h,int to_h,String username){
         for (int res=from_h ;res<to_h;res++){
             reserve_hours(day,res,username);
@@ -43,7 +45,7 @@ public abstract class Room {
     }
     boolean check_reserve(int day ,int h){
 
-        if (schedule[day][h].getUserName().size()<=maxVisitors) {
+        if (schedule[day][h].getUserName().size()>=maxVisitors) {
             return true;
         }
         return false ;
@@ -67,7 +69,7 @@ public abstract class Room {
     }
 
 
-    protected void display_avaliable_reservation(int day){
+    public void display_avaliable_reservation(int day){
         for (int i=8;i<=24;i++){
             int next_hour = i+1;
             if (!check_reserve(day,i)) System.out.println(i+" - "+next_hour+" On " + day);

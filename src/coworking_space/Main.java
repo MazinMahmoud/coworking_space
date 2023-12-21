@@ -242,8 +242,8 @@ public class Main {
         }
 
 
-//        WriteUserFile(file, Users);
-//
+        WriteUserFile(file, Users);
+
 
 
 
@@ -251,11 +251,12 @@ public class Main {
 
 //
 //test el method|
-//    Teaching_Room room1=new Teaching_Room("","","",1,3,"",10);
+//   Teaching_Room room1=new Teaching_Room("","",1,3,"",100);
 //    int today=1;
-//    room1.display_avliable_reservation(today);
-//    int t=new Scanner(System.in).nextInt();
-//    room1.reserve_hours(today,t,"m");
+//    room1.display_avaliable_reservation(today);
+//  int t=new Scanner(System.in).nextInt();
+//    room1.reserve_range(today,t,24,"m");
+//        System.out.println(room1.calc_fees("m"));
 //       int v=new Scanner(System.in).nextInt();
 //       room1.reserve_hours(today,v,"mostafa");
 //       int n=new Scanner(System.in).nextInt();
