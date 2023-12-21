@@ -1,19 +1,13 @@
 package coworking_space;
-import org.w3c.dom.ls.LSOutput;
-import java.sql.SQLOutput;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
-public class Slot {
+public class TimePeriod {
     private ArrayList<String> userName;
     private int hour;
     public boolean reserved;
 
 
-    public Slot(int hour) {
+    public TimePeriod(int hour) {
        userName=new ArrayList<>();
 
         this.hour = hour;
@@ -24,7 +18,7 @@ public class Slot {
     }
 
     public void cancel_reservation( String name) {
-        this.userName.remove(name );
+        this.userName.remove(name);
 
 
     }

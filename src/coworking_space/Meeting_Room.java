@@ -1,19 +1,15 @@
 package coworking_space;
 
-public class Teaching_Room extends Room {
-    private String projector_Type ;
-    private String board_Type;
+import coworking_space.Room;
 
-     static int fees;
-
-
-    Teaching_Room(String pro_Type,String board_type, int ID, int max,String room_name,int room_fees ){
-        super(room_name, ID,max);
-        this.projector_Type=pro_Type;
-        this.board_Type=board_type;
-        this .fees=room_fees;
-
+public class Meeting_Room extends Room {
+static int fees;
+    public Meeting_Room(String name, int ID, int maxVisitors, int fees) {
+        super(name, ID, maxVisitors);
+        this.fees=fees;
     }
+
+    @Override
     int calc_fees (String name ){
         int count_hours=0;
         for (int day =0;day<30;day ++){
@@ -31,6 +27,5 @@ public class Teaching_Room extends Room {
         return (fees *count_hours);
 
     }
-
 
 }
