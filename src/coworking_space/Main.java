@@ -28,7 +28,7 @@ public class Main {
         return Users;
     }
 
-    private static void WriteUserFile(File file, ArrayList<User> Users) throws IOException {
+    private static void WriteUserFile(File file, ArrayList<Visitor> Users) throws IOException {
 
 
         // this function is implemented to abide with the document's requirments.
@@ -77,7 +77,7 @@ public class Main {
         File file = new File("info.txt");
         File file2 = new File("Teaching_Rooms.txt");
         Scanner scan = new Scanner(System.in);
-       ArrayList<User> Users = ReadUserFile(file);
+        ArrayList<Visitor> Users = ReadUserFile(file);
 
         String username;
         String password;
@@ -115,7 +115,7 @@ public class Main {
                 }
                 if (Register) {
                     User newUser = new Visitor(username, password,VisitorType);
-                    Users.add(newUser);
+                    Users.add((Visitor) newUser);
 
                     System.out.println("You're now registered!");
                     break;
@@ -132,8 +132,6 @@ public class Main {
                         LoggedIn = true;
                         System.out.println("Welcome admin");
                         break;
-
-
                     }
 
                     if (user.getUsername().equals(username)) {
@@ -172,67 +170,62 @@ public class Main {
                 choice = scan.nextInt();
                 switch (choice)
                 {
-                    case 1:
+                    case 1 -> {
                         System.out.println("ENTER the day");
                         Reserve_day=scan.nextInt();
 
-                        if(VisitorType.equals("General")){
-                            for(int i = 1;i<=2;++i)
-                            {
-                                System.out.println("here is the avalble slots for General room"+ i);
-                                generalRooms[i-1].display_avaliable_reservation(Reserve_day);
+                        switch (VisitorType) {
+                            case "General" ->                             {
+                                for(int i = 1;i<=2;++i)
+                                {
+                                    System.out.println("here is the avalble slots for General room"+ i);
+                                    generalRooms[i-1].display_avaliable_reservation(Reserve_day);
 
+                                }   System.out.println("choose roomnumber u want to reserve in" );
+                                int roomchoice=scan.nextInt();
+                                System.out.println("Starting hour" );
+                                int Starthour=scan.nextInt();
+                                System.out.println("ending hour" );
+                                int endhour=scan.nextInt();
+                                for(int i=Starthour;i<=endhour;i++)
+                                    generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                                System.out.println("reservation done successfully to :"+username);
                             }
-                            System.out.println("choose roomnumber u want to reserve in" );
-                            int roomchoice=scan.nextInt();
-                            System.out.println("Starting hour" );
-                            int Starthour=scan.nextInt();
-                            System.out.println("ending hour" );
-                            int endhour=scan.nextInt();
-                            for(int i=Starthour;i<=endhour;i++)
-                                generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
-                            System.out.println("reservation done successfully to :"+username);
-                        }
-                        else if(VisitorType.equals("Instructor")){
-                            for(int i = 1;i<=3;++i)
-                            {
-                                System.out.println("here is the avalble slots for Teaching room"+ i);
-                                teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
+                            case "Instructor" ->                             {
+                                for(int i = 1;i<=3;++i)
+                                {
+                                    System.out.println("here is the avalble slots for Teaching room"+ i);
+                                    teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
 
+                                }   System.out.println("choose roomnumber u want to reserve in");
+                                int roomchoice=scan.nextInt();
+                                System.out.println("Starting hour" );
+                                int Starthour=scan.nextInt();
+                                System.out.println("ending hour" );
+                                int endhour=scan.nextInt();
+                                for(int i=Starthour;i<=endhour;i++)
+                                    teachingRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                                System.out.println("reservation done successfully to :"+username);
                             }
-                            System.out.println("choose roomnumber u want to reserve in");
-                            int roomchoice=scan.nextInt();
-                            System.out.println("Starting hour" );
-                            int Starthour=scan.nextInt();
-                            System.out.println("ending hour" );
-                            int endhour=scan.nextInt();
-                            for(int i=Starthour;i<=endhour;i++)
-                                teachingRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                            default ->                             {
+                                for(int i = 1;i<=3;++i)
+                                {
+                                    System.out.println("here is the avalble slots for Meeting room"+ i);
+                                    generalRooms[i-1].display_avaliable_reservation(Reserve_day);
 
-                            System.out.println("reservation done successfully to :"+username);
-                        }
-                        else{
-                            for(int i = 1;i<=3;++i)
-                            {
-                                System.out.println("here is the avalble slots for Meeting room"+ i);
-                                generalRooms[i-1].display_avaliable_reservation(Reserve_day);
-
+                                }   System.out.println("choose roomnumber u want to reserve in" );
+                                int roomchoice=scan.nextInt();
+                                System.out.println("Starting hour" );
+                                int Starthour=scan.nextInt();
+                                System.out.println("ending hour" );
+                                int endhour=scan.nextInt();
+                                for(int i=Starthour;i<=endhour;i++)
+                                    generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
+                                System.out.println("reservation done successfully to :"+username);
                             }
-                            System.out.println("choose roomnumber u want to reserve in" );
-                            int roomchoice=scan.nextInt();
-                            System.out.println("Starting hour" );
-                            int Starthour=scan.nextInt();
-                            System.out.println("ending hour" );
-                            int endhour=scan.nextInt();
-                            for(int i=Starthour;i<=endhour;i++)
-                                generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
-                            System.out.println("reservation done successfully to :"+username);
-
                         }
-                        break;
-                    case 2:
-                        System.out.println(2);
-                        break;
+                    }
+                    case 2 -> System.out.println(3);
 
 
                 }

@@ -27,7 +27,7 @@ public abstract class Room {
         }
     }
 
-    abstract int  calc_fees(String name );
+    abstract int  calc_fees(String name);
     void reserve_range (int day,int from_h,int to_h,String username){
         for (int res=from_h ;res<to_h;res++){
             reserve_hours(day,res,username);
@@ -38,7 +38,6 @@ public abstract class Room {
         {
             schedule[day][h].reserved=true;
             schedule[day][h].getUserName().add(name);
-            System.out.println("reservation done successfully to :"+name);
         }
         else System.out.println("there is no place !");
 
