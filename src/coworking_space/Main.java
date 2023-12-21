@@ -77,7 +77,7 @@ public class Main {
         File file = new File("info.txt");
         File file2 = new File("Teaching_Rooms.txt");
         Scanner scan = new Scanner(System.in);
-        ArrayList<User> Users = ReadUserFile(file);
+       ArrayList<User> Users = ReadUserFile(file);
 
         String username;
         String password;
