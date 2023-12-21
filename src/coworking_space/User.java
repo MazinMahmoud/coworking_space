@@ -24,8 +24,12 @@ public class User {
         return this.password;
     }
 
+    public static int getId() {
 
-    public static boolean Login(String password, String username,File file) throws IOException {
+        return ID;
+    }
+
+    public static boolean Login(String password, String username, File file) throws IOException {
        return checkCredintials(file,username,password,false);
     }
     public static boolean Register(String password,String username,File file) throws IOException{

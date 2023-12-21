@@ -6,7 +6,7 @@ public abstract class Room {
     protected String name;
     protected int ID;
     int maxVisitors;
-
+    static  int  fees;
     public TimePeriod schedule[][]=new TimePeriod[31][25];
 
 
@@ -28,18 +28,24 @@ public abstract class Room {
     }
 
     abstract int  calc_fees(String name);
+    boolean flag=true;
+
     void reserve_range (int day,int from_h,int to_h,String username){
         for (int res=from_h ;res<to_h;res++){
             reserve_hours(day,res,username);
         }
+        if (flag)
+        System.out.println("reservation done to "+username);
+        else System.out.println("there is no place !");
     }
     void reserve_hours(int day,int h,String name){
         if (!check_reserve(day,h))
         {
             schedule[day][h].reserved=true;
             schedule[day][h].getUserName().add(name);
+            flag=true;
         }
-        else System.out.println("there is no place !");
+        else flag=false;
 
     }
     boolean check_reserve(int day ,int h){
@@ -65,6 +71,24 @@ public abstract class Room {
 
             }
         }
+    }
+    public int calcfeesforallusers(String name) {
+        int count_hours = 0;
+        if (name.equals(this.name)) {
+            for (int day = 0; day < 30; day++) {
+                for (int hour = 8; hour <= 24; hour++) {
+                    for (int i = 0; i < schedule[day][hour].getUserName().size(); ++i) {
+                        if (schedule[day][hour].getUserName().get(i) != null) {
+                            count_hours++;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        return count_hours*fees;
     }
 
 

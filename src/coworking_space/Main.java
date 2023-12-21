@@ -53,6 +53,7 @@ public class Main {
                 new Teaching_Room("DLP", "white_board", 2, 10, "teaching room", 200),
                 new Teaching_Room("laser", "white_board", 3, 10, "teaching room", 200)
         };
+
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
 
@@ -78,6 +79,11 @@ public class Main {
         File file2 = new File("Teaching_Rooms.txt");
         Scanner scan = new Scanner(System.in);
         ArrayList<Visitor> Users = ReadUserFile(file);
+        Meeting_Room []meetingRooms = {
+                new Meeting_Room("Meeting room", 1, 2, 10 ),
+                new Meeting_Room("meating room", 2, 10, 10 ),
+                new Meeting_Room("meating room", 3, 10, 10 )
+        };
 
         String username;
         String password;
@@ -86,8 +92,8 @@ public class Main {
         boolean admin=false;
         Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
         General_room generalRooms[] = {
-                new General_room("general room", 1, 20, 10 ),
-                new General_room("general room", 2, 20, 10 )
+                new General_room("general room", 1, 2, 10 ),
+                new General_room("general room", 2, 2, 10 )
         };
 
         while (true) {
@@ -156,7 +162,11 @@ public class Main {
 
         }
         if(admin)
-            System.out.println(1);
+        {
+            Admin admins=new Admin ();
+            Meeting_Room meetingRoom=new Meeting_Room("",1,5,5);
+            admins.admin_update_any_entity(Users,generalRooms,teachingRooms);
+        }
         else
         {
 
@@ -183,13 +193,12 @@ public class Main {
 
                                 }   System.out.println("choose roomnumber u want to reserve in" );
                                 int roomchoice=scan.nextInt();
+
                                 System.out.println("Starting hour" );
                                 int Starthour=scan.nextInt();
                                 System.out.println("ending hour" );
                                 int endhour=scan.nextInt();
-                                for(int i=Starthour;i<=endhour;i++)
-                                    generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
-                                System.out.println("reservation done successfully to :"+username);
+                                generalRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
                             case "Instructor" ->                             {
                                 for(int i = 1;i<=3;++i)
@@ -199,13 +208,12 @@ public class Main {
 
                                 }   System.out.println("choose roomnumber u want to reserve in");
                                 int roomchoice=scan.nextInt();
+                                Users.get(Users.indexOf(username)).choice_room=roomchoice;
                                 System.out.println("Starting hour" );
                                 int Starthour=scan.nextInt();
                                 System.out.println("ending hour" );
                                 int endhour=scan.nextInt();
-                                for(int i=Starthour;i<=endhour;i++)
-                                    teachingRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
-                                System.out.println("reservation done successfully to :"+username);
+                                teachingRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
                             default ->                             {
                                 for(int i = 1;i<=3;++i)
@@ -219,10 +227,7 @@ public class Main {
                                 int Starthour=scan.nextInt();
                                 System.out.println("ending hour" );
                                 int endhour=scan.nextInt();
-                                for(int i=Starthour;i<=endhour;i++)
-                                    generalRooms[roomchoice-1]. reserve_hours(Reserve_day,i,username);
-                                System.out.println("reservation done successfully to :"+username);
-                            }
+                               meetingRooms [roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);                            }
                         }
                     }
                     case 2 -> System.out.println(3);

@@ -9,21 +9,6 @@ public class General_room extends Room{
      this.fees=fees;
     }
 
-    int calcfeesforallusers(String name) {int count_hours = 0;
-        if (name.equals(this.name)) {
-            for (int day = 0; day < 30; day++) {
-                for (int hour = 8; hour <= 24; hour++) {
-
-                    if (schedule[day][hour].getUserName() != null) {
-                        count_hours++;
-                    }
-                }
-            }
-
-
-        }
-        return count_hours*fees;
-    }
     int calc_fees (String name){
         int count_hours=0;
         for (int day =0;day<30;day ++){

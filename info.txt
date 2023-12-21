@@ -1,5 +1,5 @@
-ibrahim:ibrahim2011:General
+Ibrahim:ibrahim2011:Formal
 Ismail:ismail2004:Formal
-Ismailxd:ismail2004:Instructor
-Ismaill:ismail2004:Formal
-Ismailll:ismail2004:Instructor
+Ismailxd:ismail2004:Formal
+Ismaill:ismail2004:Instructor
+Ismailll:ismail2004:Formal
