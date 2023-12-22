@@ -3,9 +3,9 @@ package coworking_space;
 import java.util.ArrayList;
 
 public abstract class Room {
-    protected String name;
+    protected final String name;
     protected int ID;
-    int maxVisitors;
+    final int maxVisitors;
     static  int  fees;
     public TimePeriod schedule[][]=new TimePeriod[31][25];
 

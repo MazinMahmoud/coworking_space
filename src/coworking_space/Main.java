@@ -8,25 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<Visitor> ReadUserFile(File file) {
-        String path = file.getAbsolutePath();
-        ArrayList<Visitor> Users = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length >= 2) {
-                    Visitor takingUser = new Visitor(parts[0], parts[1],parts[2]);
-                    Users.add(takingUser);
-                }
-            }
 
-        } catch (IOException eslam) {
-            eslam.printStackTrace();
-        }
-
-        return Users;
-    }
 
     private static void WriteUserFile(File file, ArrayList<Visitor> Users) throws IOException {
 
@@ -46,7 +28,26 @@ public class Main {
 
 
     }
-    public static Teaching_Room[]  ReadTeachingRooms(File file){
+    private static ArrayList<Visitor> ReadUserFile(File file) {
+        String path = file.getAbsolutePath();
+        ArrayList<Visitor> Users = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length >= 2) {
+                    Visitor takingUser = new Visitor(parts[0], parts[1],parts[2]);
+                    Users.add(takingUser);
+                }
+            }
+
+        } catch (IOException eslam) {
+            eslam.printStackTrace();
+        }
+
+        return Users;
+    }
+    private static Teaching_Room[]  ReadTeachingRooms(File file){
         String path = file.getAbsolutePath();
         Teaching_Room [] teachingRooms  = {
                 new Teaching_Room("laser", "white_board", 1, 10, "teaching room", 200),
@@ -61,7 +62,7 @@ public class Main {
 
                 String[] parts = line.split(":");
                 if (parts.length >= 2) {
-                    teachingRooms[Integer.parseInt(parts[0])].reserve_hours(Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),parts[3]);
+                    teachingRooms[Integer.parseInt(parts[0])-1].reserve_hours(Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),parts[3]);
                 }
             }
 
@@ -72,29 +73,76 @@ public class Main {
 
         return teachingRooms;
     }
+    private static General_room[]  ReadGeneralRooms(File file){
+        String path = file.getAbsolutePath();
+        General_room [] generalRooms  = {
+                new General_room("General", 1),
+                new General_room("General", 2),
+                new General_room("General", 3)
+        };
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(":");
+                if (parts.length >= 2) {
+                    generalRooms[Integer.parseInt(parts[0])-1].reserve_hours(Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),parts[3]);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return generalRooms;
+    }
+    private static Meeting_Room[]  ReadMeetingRooms(File file){
+        String path = file.getAbsolutePath();
+        Meeting_Room [] meetingRooms  = {
+                new Meeting_Room("Meeting", 1),
+                new Meeting_Room("Meeting", 2),
+                new Meeting_Room("General", 3)
+        };
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(":");
+                if (parts.length >= 2) {
+                    meetingRooms[Integer.parseInt(parts[0])-1].reserve_hours(Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),parts[3]);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return meetingRooms;
+    }
 
     public static void main(String[] args) throws IOException {
         File file = new File("info.txt");
         File file2 = new File("Teaching_Rooms.txt");
+        File file3 = new File("General_Rooms.txt");
+        File file4 = new File("Meeting_Rooms.txt");
         Scanner scan = new Scanner(System.in);
-        ArrayList<Visitor> Users = ReadUserFile(file);
-        Meeting_Room []meetingRooms = {
-                new Meeting_Room("meeting room", 1, 10, 10 ),
-                new Meeting_Room("meeting room", 2, 10, 10 ),
-                new Meeting_Room("meeting room", 3, 10, 10 )
-        };
+        //READING
 
+        ArrayList<Visitor> Users = ReadUserFile(file);
+        Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
+        General_room [] generalRooms    = ReadGeneralRooms(file3);
+        Meeting_Room[] meetingRooms = ReadMeetingRooms(file4);
         String username;
         String password;
-        String VisitorType = "General";
         int Reserve_day;
         boolean admin=false;
-        Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
-        General_room generalRooms[] = {
-                new General_room("general room", 1, 20, 10 ),
-                new General_room("general room", 2, 20, 10 )
-        };
+        String VisitorType = null;
 
         while (true) {
             System.out.println("If you are new user press R to register ,otherwise press any key to login"); //should be fixed when implementing javafx
@@ -104,46 +152,65 @@ public class Main {
             if (c.equalsIgnoreCase("R")) {
                 System.out.println("Enter your new username: ");
                 username = scan.nextLine();
-
-
                 System.out.println("Enter your new password:");
                 password = scan.nextLine();
-                System.out.println("Which type of visitor are you? (general/formal/instructor");
-                VisitorType = scan.nextLine();
+                System.out.println("Which type of visitor are you?\n"+
+                                    "1. Instructor\n"+
+                                    "2. Formal\n"+
+                                    "3. General\n");
 
-                for (User users : Users) {
+                int choice = scan.nextInt();
+                switch(choice){
+                    case 1 ->{
+                        VisitorType = "Instructor";
+                    }
+                    case 2 ->{
+                        VisitorType = "Formal";
+                    }
+                    case 3->{
+                        VisitorType = "General";
+                    }
+                    default -> {
+                        System.out.println("Invalid number, Please try again!");
+                        continue;
+                    }
+                }
+
+
+
+                for (Visitor users : Users) {
                     if (users.getUsername().equals(username)) {
                         System.out.println("This username is already taken, please enter another one!");
                         Register = false;
                         break;
-
                     }
                 }
                 if (Register) {
-                    User newUser = new Visitor(username, password,VisitorType);
-                    Users.add((Visitor) newUser);
-
+                    Visitor newUser = new Visitor(username, password,VisitorType);
+                    Users.add(newUser);
                     System.out.println("You're now registered!");
-                    break;
+                    continue;
                 }
+
             } else {
                 System.out.println("Please enter your username:");
                 username = scan.nextLine();
                 System.out.println("Please enter your password:");
                 password = scan.nextLine();
-                for (User user : Users) {
+                for (Visitor user : Users) {
                     if (username.equals("admin")&& password.equals("admin"))
                     {
                         admin=true;
                         LoggedIn = true;
-                        System.out.println("Welcome admin");
+                        System.out.println("Welcome admin!\n");
                         break;
                     }
 
                     if (user.getUsername().equals(username)) {
                         if (user.getPassword().equals(password)) {
-                            System.out.println("Welcome " + username);
+                            System.out.println("Welcome " + username + "!\n");
                             LoggedIn = true;
+                            VisitorType = user.VistorType;
                             break;
                         }
                     }
@@ -151,7 +218,7 @@ public class Main {
 
 
                 if (!LoggedIn) {
-                    System.out.println("Invalid username or password! please try again!");
+                    System.out.println("Invalid username or password! please try again!\n");
                 }
 
 
@@ -163,15 +230,11 @@ public class Main {
         }
         if(admin)
         {
-            Admin admins=new Admin ();
-            Meeting_Room meetingRoom=new Meeting_Room("",1,5,5);
-            admins.admin_update_any_entity(Users,generalRooms,teachingRooms);
+            Admin admins = new Admin ();
         }
         else
         {
-
             int choice;
-
             while(true)
             {
                 System.out.println("Press 1 to make new Reservation");
@@ -181,7 +244,7 @@ public class Main {
                 switch (choice)
                 {
                     case 1 -> {
-                        System.out.println("ENTER the day");
+                        System.out.println("Enter the day you want to reserve on\n");
                         Reserve_day=scan.nextInt();
 
                         switch (VisitorType) {
@@ -191,27 +254,27 @@ public class Main {
                                     System.out.println("Here are the available reservation times for General room"+ i);
                                     generalRooms[i-1].display_avaliable_reservation(Reserve_day);
 
-                                }   System.out.println("which room do you want to reserve?" );
-                                int roomchoice=scan.nextInt();
+                                }   System.out.println("Which room do you want to reserve?");
+                                    int roomchoice=scan.nextInt();
 
-                                System.out.println("Starting hour" );
+                                System.out.println("Starting hour");
                                 int Starthour=scan.nextInt();
-                                System.out.println("Ending hour" );
+                                System.out.println("Ending hour");
                                 int endhour=scan.nextInt();
                                 generalRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
                             case "Instructor" ->                             {
                                 for(int i = 1;i<=3;++i)
                                 {
-                                    System.out.println("Here are the available reservation times for Teaching room"+ i);
+                                    System.out.println("Here are the available reservation times for Teaching room "+ i);
                                     teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
 
                                 }   System.out.println("which room do you want to reserve?");
                                 int roomchoice=scan.nextInt();
                                 Users.get(Users.indexOf(username)).choice_room=roomchoice;
-                                System.out.println("Starting hour" );
+                                System.out.println("Starting hour");
                                 int Starthour=scan.nextInt();
-                                System.out.println("ending hour" );
+                                System.out.println("ending hour");
                                 int endhour=scan.nextInt();
                                 teachingRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }

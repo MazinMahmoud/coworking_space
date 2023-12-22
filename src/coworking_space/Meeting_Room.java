@@ -4,9 +4,8 @@ import coworking_space.Room;
 
 public class Meeting_Room extends Room {
 
-    public Meeting_Room(String name, int ID, int maxVisitors, int fees) {
-        super(name, ID, maxVisitors);
-        this.fees=fees;
+    public Meeting_Room(String name, int ID) {
+        super(name, ID,10);
     }
 
     @Override

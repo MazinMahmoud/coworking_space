@@ -3,10 +3,10 @@ package coworking_space;
 public class General_room extends Room{
 
 
-   static int fees;
-    public General_room(String name, int ID, int maxVisitors, int fees ){
-        super(name, ID, maxVisitors);
-     this.fees=fees;
+     int fees = 20;
+
+    public General_room(String name, int ID ){
+        super("General", ID,20);
     }
 
     int calc_fees (String name){
