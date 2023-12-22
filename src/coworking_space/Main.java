@@ -80,9 +80,9 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         ArrayList<Visitor> Users = ReadUserFile(file);
         Meeting_Room []meetingRooms = {
-                new Meeting_Room("Meeting room", 1, 2, 10 ),
-                new Meeting_Room("meating room", 2, 10, 10 ),
-                new Meeting_Room("meating room", 3, 10, 10 )
+                new Meeting_Room("meeting room", 1, 10, 10 ),
+                new Meeting_Room("meeting room", 2, 10, 10 ),
+                new Meeting_Room("meeting room", 3, 10, 10 )
         };
 
         String username;
@@ -92,12 +92,12 @@ public class Main {
         boolean admin=false;
         Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
         General_room generalRooms[] = {
-                new General_room("general room", 1, 2, 10 ),
-                new General_room("general room", 2, 2, 10 )
+                new General_room("general room", 1, 20, 10 ),
+                new General_room("general room", 2, 20, 10 )
         };
 
         while (true) {
-            System.out.println("If you are new user, press R to register otherwise press any key to login"); //should be fixed when implementing javafx
+            System.out.println("If you are new user press R to register ,otherwise press any key to login"); //should be fixed when implementing javafx
             boolean Register = true;
             boolean LoggedIn = false;
             String c = scan.nextLine();
@@ -108,12 +108,12 @@ public class Main {
 
                 System.out.println("Enter your new password:");
                 password = scan.nextLine();
-                System.out.println("Are you a formal visitor or a an instructor or a general vis");
+                System.out.println("Which type of visitor are you? (general/formal/instructor");
                 VisitorType = scan.nextLine();
 
                 for (User users : Users) {
                     if (users.getUsername().equals(username)) {
-                        System.out.println("This username has been taken before, please enter another valid one!");
+                        System.out.println("This username is already taken, please enter another one!");
                         Register = false;
                         break;
 
@@ -151,7 +151,7 @@ public class Main {
 
 
                 if (!LoggedIn) {
-                    System.out.println("Error: Invalid Username or password! please try again!");
+                    System.out.println("Invalid username or password! please try again!");
                 }
 
 
@@ -174,9 +174,9 @@ public class Main {
 
             while(true)
             {
-                System.out.println("Press 1 to make new Resarvation");
-                System.out.println("Press 2 to Update Resarvation");
-                System.out.println("Press 3 to Cancel Resarvation");
+                System.out.println("Press 1 to make new Reservation");
+                System.out.println("Press 2 to Update Reservation");
+                System.out.println("Press 3 to Cancel Reservation");
                 choice = scan.nextInt();
                 switch (choice)
                 {
@@ -188,25 +188,25 @@ public class Main {
                             case "General" ->                             {
                                 for(int i = 1;i<=2;++i)
                                 {
-                                    System.out.println("here is the avalble slots for General room"+ i);
+                                    System.out.println("Here are the available reservation times for General room"+ i);
                                     generalRooms[i-1].display_avaliable_reservation(Reserve_day);
 
-                                }   System.out.println("choose roomnumber u want to reserve in" );
+                                }   System.out.println("which room do you want to reserve?" );
                                 int roomchoice=scan.nextInt();
 
                                 System.out.println("Starting hour" );
                                 int Starthour=scan.nextInt();
-                                System.out.println("ending hour" );
+                                System.out.println("Ending hour" );
                                 int endhour=scan.nextInt();
                                 generalRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
                             case "Instructor" ->                             {
                                 for(int i = 1;i<=3;++i)
                                 {
-                                    System.out.println("here is the avalble slots for Teaching room"+ i);
+                                    System.out.println("Here are the available reservation times for Teaching room"+ i);
                                     teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
 
-                                }   System.out.println("choose roomnumber u want to reserve in");
+                                }   System.out.println("which room do you want to reserve?");
                                 int roomchoice=scan.nextInt();
                                 Users.get(Users.indexOf(username)).choice_room=roomchoice;
                                 System.out.println("Starting hour" );
@@ -216,16 +216,16 @@ public class Main {
                                 teachingRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
                             default ->                             {
-                                for(int i = 1;i<=3;++i)
+                                for(int i = 1;i<=3;i++)
                                 {
-                                    System.out.println("here is the avalble slots for Meeting room"+ i);
+                                    System.out.println("Here are the available reservation times for Meeting room"+ i);
                                     generalRooms[i-1].display_avaliable_reservation(Reserve_day);
 
-                                }   System.out.println("choose roomnumber u want to reserve in" );
+                                }   System.out.println("which room do you want to reserve?" );
                                 int roomchoice=scan.nextInt();
                                 System.out.println("Starting hour" );
                                 int Starthour=scan.nextInt();
-                                System.out.println("ending hour" );
+                                System.out.println("Ending hour" );
                                 int endhour=scan.nextInt();
                                meetingRooms [roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);                            }
                         }
