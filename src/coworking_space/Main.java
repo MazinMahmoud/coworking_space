@@ -138,6 +138,7 @@ public class Main {
         Teaching_Room [] teachingRooms  = ReadTeachingRooms(file2);
         General_room [] generalRooms    = ReadGeneralRooms(file3);
         Meeting_Room[] meetingRooms = ReadMeetingRooms(file4);
+        Visitor theVisitor;
         String username;
         String password;
         int Reserve_day;
@@ -240,7 +241,9 @@ public class Main {
                 System.out.println("Press 1 to make new Reservation");
                 System.out.println("Press 2 to Update Reservation");
                 System.out.println("Press 3 to Cancel Reservation");
+                System.out.println("Press 4 to Display Avalabe times");
                 choice = scan.nextInt();
+                
                 switch (choice)
                 {
                     case 1 -> {
@@ -248,52 +251,118 @@ public class Main {
                         Reserve_day=scan.nextInt();
 
                         switch (VisitorType) {
-                            case "General" ->                             {
-                                for(int i = 1;i<=2;++i)
-                                {
-                                    System.out.println("Here are the available reservation times for General room"+ i);
-                                    generalRooms[i-1].display_avaliable_reservation(Reserve_day);
+                            case "General" -> {
+               
+                                System.out.println("Which room do you want to reserve?");
+                                int roomchoice = scan.nextInt();
+                                int index = 0;
+                                for (int i = 0; i < Users.size(); i++) {
+                                    if (Users.get(i).getUsername().equals(username)) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                    Users.get(index).choice_room = roomchoice;
+                                     System.out.println("choose Reservation range from(8 am) to (12pm)");
+                                    System.out.println("Starting hour ");
+                                    int Starthour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int StartTimeChoice=scan.nextInt();
+                                    if(StartTimeChoice==2)
+                                        Starthour+=12;
+                                    
+                                    System.out.println("Ending hour to 12 PM");
+                                    int endhour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int EndTimeChoice=scan.nextInt();
+                                    if(EndTimeChoice==2)
+                                       endhour+=12;
+                                    generalRooms[roomchoice - 1].reserve_range(Reserve_day, Starthour, endhour, username);
 
-                                }   System.out.println("Which room do you want to reserve?");
-                                    int roomchoice=scan.nextInt();
-
-                                System.out.println("Starting hour");
-                                int Starthour=scan.nextInt();
-                                System.out.println("Ending hour");
-                                int endhour=scan.nextInt();
-                                generalRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
                             }
-                            case "Instructor" ->                             {
-                                for(int i = 1;i<=3;++i)
-                                {
-                                    System.out.println("Here are the available reservation times for Teaching room "+ i);
-                                    teachingRooms[i-1].display_avaliable_reservation(Reserve_day);
+                            case "Instructor" -> {
+                                System.out.println("which room do you want to reserve?");
+                                int roomchoice = scan.nextInt();
+                                int index = 0;
+                                for (int i = 0; i < Users.size(); i++) {
+                                    if (Users.get(i).getUsername().equals(username)) {
+                                        index = i;
+                                        break;
+                                    }
+                                    Users.get(index).choice_room = roomchoice;
 
-                                }   System.out.println("which room do you want to reserve?");
-                                int roomchoice=scan.nextInt();
-                                Users.get(Users.indexOf(username)).choice_room=roomchoice;
-                                System.out.println("Starting hour");
-                                int Starthour=scan.nextInt();
-                                System.out.println("ending hour");
-                                int endhour=scan.nextInt();
-                                teachingRooms[roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);
+                                      System.out.println("choose Reservation range from(8 am) to (12pm)");
+                                    System.out.println("Starting hour ");
+                                    int Starthour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int StartTimeChoice=scan.nextInt();
+                                    if(StartTimeChoice==2)
+                                        Starthour+=12;
+                                    
+                                    System.out.println("Ending hour to 12 PM");
+                                    int endhour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int EndTimeChoice=scan.nextInt();
+                                    if(EndTimeChoice==2)
+                                       endhour+=12;
+                                    teachingRooms[roomchoice - 1].reserve_range(Reserve_day, Starthour, endhour, username);
+                                }
                             }
-                            default ->                             {
-                                for(int i = 1;i<=3;i++)
-                                {
-                                    System.out.println("Here are the available reservation times for Meeting room"+ i);
-                                    generalRooms[i-1].display_avaliable_reservation(Reserve_day);
-
-                                }   System.out.println("which room do you want to reserve?" );
+                            case "Formal" -> {
+                              System.out.println("which room do you want to reserve?" );
                                 int roomchoice=scan.nextInt();
-                                System.out.println("Starting hour" );
-                                int Starthour=scan.nextInt();
-                                System.out.println("Ending hour" );
-                                int endhour=scan.nextInt();
+                                System.out.println("choose Reservation range from(8 am) to (12pm)");
+                                    System.out.println("Starting hour ");
+                                    int Starthour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int StartTimeChoice=scan.nextInt();
+                                    if(StartTimeChoice==2)
+                                        Starthour+=12;
+                                    
+                                    System.out.println("Ending hour to 12 PM");
+                                    int endhour = scan.nextInt();
+                                    System.out.println("1 for Am ,2 For Pm");
+                                    int EndTimeChoice=scan.nextInt();
+                                    if(EndTimeChoice==2)
+                                       endhour+=12;
                                meetingRooms [roomchoice-1].reserve_range (Reserve_day, Starthour,endhour, username);                            }
                         }
                     }
                     case 2 -> System.out.println(3);
+                    case 3 -> System.out.println(3);
+                    case 4->{ 
+                           System.out.println("Enter the day you want to display on\n");
+                        Reserve_day=scan.nextInt();
+                        switch (VisitorType) {
+                            
+                            case "General" -> {
+                                System.out.println("the fees for General room per hour is "+ General_room.getFees());
+                                for (int i = 1; i <= 2; ++i) {
+                                    System.out.println("Here are the available reservation times for General room" + i +" on day " +Reserve_day+"th of the month");
+                                    generalRooms[i - 1].display_avaliable_reservation(Reserve_day);
+                                }
+
+                            }
+                            case "Instructor" -> {
+                                System.out.println("the fees for Teaching room per hour is "+ Teaching_Room.getFees());
+                                for (int i = 1; i <= 3; ++i) {
+                                    System.out.println("Here are the available reservation times for Teaching room " +i+ " on day " +Reserve_day+"th of the month");
+                                    teachingRooms[i - 1].display_avaliable_reservation(Reserve_day);
+
+                                }
+                            }
+                                  case "Formal" -> {
+                                       System.out.println("the fees for meating room per hour is "+ Meeting_Room.getFees());
+                                for(int i = 1;i<=3;i++)
+                                {
+                                    System.out.println("Here are the available reservation times for Meeting room"+ i+" on day " +Reserve_day+"th of the month");
+                                    meetingRooms[i-1].display_avaliable_reservation(Reserve_day);
+
+                                } 
+                                 }
+                        }
+                    }
+                           
 
 
                 }

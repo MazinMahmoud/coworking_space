@@ -26,6 +26,11 @@ public abstract class Room {
             }
         }
     }
+
+    public static int getFees() {
+        return fees;
+    }
+    
     abstract int  calc_fees(String name);
     boolean flag=true;
 
@@ -55,6 +60,7 @@ public abstract class Room {
         return false ;
 
     }
+  
 
 
     void cancel_reservation(int day,int h,String name_user){
@@ -92,9 +98,17 @@ public abstract class Room {
 
 
     public void display_avaliable_reservation(int day){
-        for (int i=8;i<=24;i++){
+        for (int i=8;i<24;i++){
             int next_hour = i+1;
-            if (!check_reserve(day,i)) System.out.println(i+" - "+next_hour+" On " + day);
+            if (!check_reserve(day,i))
+            {
+                if(i==12)
+                  System.out.println(i+" - "+(next_hour-12)+" Pm ");
+                else if(i<12)
+                System.out.println(i+" - "+next_hour+" Am ");
+                else
+                 System.out.println((i-12)+" - "+(next_hour-12)+" Pm ");  
+            }
         }
     }
     void update(int day,int from_h,int to_h, String name ){
